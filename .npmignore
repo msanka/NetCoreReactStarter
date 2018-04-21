@@ -4,6 +4,9 @@
 /MockConsumerApp
 /Server
 /src
+/wwwroot/js/app
+/obj
+/bin
 tests.webpack.js
 webpack.conf.js
 karma.conf.js
