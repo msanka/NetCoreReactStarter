@@ -1,8 +1,5 @@
 /node_modules
 /dist
-/Server/NetCoreWebApp/wwwroot/js/consumerApp.js
-/Server/NetCoreWebApp/wwwroot/js/consumerApp.js.map
-/Server/NetCoreWebApp/wwwroot/js/vendor.js
-/Server/NetCoreWebApp/wwwroot/js/vendor.js.map
-/Server/NetCoreWebApp/wwwroot/js/app.js.map
-/Server/NetCoreWebApp/wwwroot/js/app.js
+/wwwroot/js/app
+/obj
+/bin
