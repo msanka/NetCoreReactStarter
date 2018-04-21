@@ -1,0 +1,7 @@
+POST http://localhost:5000/api/security/authenticate
+content-type: application/json
+
+{
+    "UserName": "nat",
+    "Password": "secret"
+}

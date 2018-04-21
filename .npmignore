@@ -1,0 +1,20 @@
+# .npmignore
+/JSUnitTests
+/node_modules
+/MockConsumerApp
+/Server
+/src
+tests.webpack.js
+webpack.conf.js
+karma.conf.js
+.babelrc
+.eslintrc
+.vscode
+changelog.md
+readme.md
+debug.log
+webpack_module.config.js
+webpack_local.config.js
+PublishToLOCALNPM.bat
+/build-automation-scripts
+*.txt
