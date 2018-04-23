@@ -1,29 +1,27 @@
 import axios from 'axios';
 import Qs from 'qs';
 
-const CancelToken = axios.CancelToken;
-
-class APIHelperUtilities
+export default (id, instanceId, config, onSuccess, onFailed, onNotifyProgress=null, alwaysNew=true) => 
 {
-    static getRequestTemplate()
-    {
-        //Credit : https://github.com/axios/axios
-        return (
-        {
-            url: null,
-            method: 'get', // default
-            baseURL: '',
-            headers: null,
-            queryParams: {},
-            body: {},
-            responseType: 'json', // default
-            responseEncoding: 'utf8' // default
-        });
-    }
+    console.log('Register New Layout Action Received');
 
-    static executeRequest(config, onSuccess, onFailed, onNotifyProgress=null)
+    return (dispatch, getState) => 
     {
-        let updateWidgetSettings = (config) =>
+        const { APIHelperRegistry } = getState();
+        
+        if ( alwaysNew == true)
+        {
+            let onGoingActiveCall = APIHelperRegistry.activeCalls.filter(ac => ac.id == id && ac.instanceId == instanceId)[0];
+
+            if (onGoingActiveCall != null)
+            {
+                onGoingActiveCall.cancel();
+            }
+        }
+        
+        let cancelTokenSource = axios.CancelToken.source();
+
+        let updateWidgetSettings = (config, cancelTokenSource) =>
         {
             let widgetSettings =
             {
@@ -55,6 +53,7 @@ class APIHelperUtilities
                         onNotifyProgress('download', progressEvent);
                     }
                 },
+                cancelToken : cancelTokenSource.token,
                 params : config.queryParams,
                 data   : config.body
             };
@@ -68,7 +67,7 @@ class APIHelperUtilities
             config.onNotifyProgress = onNotifyProgress;
         }
         
-        let updatedConfig = this.updateWidgetSettings(config);
+        let updatedConfig = this.updateWidgetSettings(config, cancelTokenSource);
         
         axios.request(updatedConfig)
         .then((response) =>
@@ -86,7 +85,7 @@ class APIHelperUtilities
         {
             onFailed(error, response);
         });
-    }
-}
 
-export default APIHelperUtilities;
+
+    };
+}

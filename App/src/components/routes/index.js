@@ -64,7 +64,7 @@ export default
                 name        : 'Users',
                 path        : '/protected/users',
                 strict      : true,
-                component   : Loadable({ loader: () => import('./protected/users').then((resp) => {return resp.default}), ...loadableOptions })
+                component   : Loadable({ loader: () => import('../../containers/routes/protected/ctr_users').then((resp) => {return resp.default}), ...loadableOptions })
             }
         ],
     }

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM  from 'react-dom';
+import { Provider } from 'react-redux';
 import Notifications, {notify} from 'react-notify-toast';
 import AppRouter from './components/router';
-
+//Store Import
+import AppStore from './store';
 //Components Import - Start
 import ErrorBoundary from './components/shared/errorBounary';
 import Footer from './components/shared/footer';
@@ -19,6 +21,7 @@ class App extends Component
   render()
   {
    return(
+    <Provider store={AppStore()}>
       <div>
           <Notifications />
           <ErrorBoundary>
@@ -27,6 +30,7 @@ class App extends Component
             <Footer />
           </ErrorBoundary>
       </div>
+    </Provider>
    );
   }
 }

@@ -2,6 +2,7 @@ import { compose, applyMiddleware } from 'redux';
 import { createStore } from 'redux-dynamic-reducer';//Credit : https://www.npmjs.com/package/react-redux-dynamic-reducer
 import thunkMiddleware from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
+import axiosAPIMiddleware from '../utilities/middleware_axios';
 
 import appReducers from "../reducers";
 
@@ -14,7 +15,7 @@ let enableReduxDevTools = true;
 export default function() 
 {
     var appStore = compose(
-        applyMiddleware(thunkMiddleware, promiseMiddleware),
+        applyMiddleware(thunkMiddleware, promiseMiddleware, axiosAPIMiddleware),
        enableReduxDevTools ? compose(window.devToolsExtension ? window.devToolsExtension() : f => f) : null)
        (createStore);
 

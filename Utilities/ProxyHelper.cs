@@ -206,8 +206,7 @@ namespace native_api_proxy_module.Utilities
             }
             catch (Exception ex)
             {
-                // Do some logging here
-                Console.Write(ex.Message);
+                throw ex;
             }
         }
     }
