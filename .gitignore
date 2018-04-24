@@ -1,5 +1,6 @@
 /node_modules
 /dist
 /wwwroot/js/app
+/wwwroot/js/app/
 /obj
 /bin
