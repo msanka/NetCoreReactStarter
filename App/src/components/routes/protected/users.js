@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import AutoForm from 'react-auto-form';
 import ApiComponent from '../../../containers/shared/ctr_ApiComponent';
 
-
 class Users extends Component
 {
     constructor(props)

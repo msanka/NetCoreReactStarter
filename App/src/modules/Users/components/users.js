@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import AutoForm from 'react-auto-form';
-import ApiWidget from '../../shared/ApiWidget';
-import axios from 'axios';
+import ApiComponent from '../../../containers/shared/ctr_ApiComponent';
 
-class Users1 extends Component
+
+class Users extends Component
 {
     constructor(props)
     {
@@ -15,19 +15,20 @@ class Users1 extends Component
     onSubmit(event, data)
     {
       event.preventDefault();
-
-      let apiConfig = ApiWidget.getRequestTemplate();
-
-      apiConfig.url = __globals.PROXY_URI + '?url=$Config.jsonPlaceHolderBasePath$/users';
-      apiConfig.method = 'get';
-      apiConfig.headers = { 'userid' : '$Jwt.nameid$', 'givenName' : '$Jwt.given_name$' }
-
-      let onSuccess = (data) =>
+      if (this.props.getUsersList != null)
       {
-        console.log(data);
+          this.props.getUsersList();
       }
+    }
 
-      this.refs.btnGetUsers.executeRequest(apiConfig, onSuccess);
+    renderUsersList()
+    {
+      if ((this.props.usersList == null) || (this.props.usersList.length <=0))
+    return (<div> Users not available </div>);
+      
+      return this.props.usersList.map((user) => {
+        return (<div> {user.name} </div>)
+      });
     }
 
     render()
@@ -43,17 +44,20 @@ class Users1 extends Component
               <AutoForm onSubmit={this.onSubmit} trimOnSubmit>
                 <div className="form-group">
                   <div className="col-sm-12 controls">
-                    <ApiWidget 
+                    <ApiComponent
+                        actionType = 'USERS_GET_USERS' 
                         Component={() => {return(<button type="submit" className="btn btn-primary"> Get Users </button>)} }
                         ref='btnGetUsers'
                         />
                   </div>
                 </div>
               </AutoForm>
+              <hr/>
+              {this.renderUsersList()}
             </div>
           </div>
         );
     }
 }
 
-export default Users1;
+export default Users;
