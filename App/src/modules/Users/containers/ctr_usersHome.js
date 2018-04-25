@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import getUsersList from '../../../actions/act_get_users_list';
-import users from '../../../components/routes/protected/users';
+import getUsersList from '../actions/act_get_users_list';
+import UsersHome from '../components/usersHome';
 
 const mapStateToProps = (state, ownProps) => 
 {
+    let currentModuleReducer = state.moduleReducers.UserModule;
     let actionType = ownProps.actionType;
 
     let activeAPI = state.APITracker.activeCalls.filter(ci => ci.actionType == actionType)[0];
@@ -12,7 +13,7 @@ const mapStateToProps = (state, ownProps) =>
 
     return(
     {
-        usersList : state.Users.usersList,
+        usersList : currentModuleReducer.Users.usersList,
     });
 }
 
@@ -23,9 +24,9 @@ const mapDispatchToProps = (dispatch) => {
       }, dispatch);
   }
 
-const UsersContainer = connect(
+const UsersHomeContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(users)
+)(UsersHome)
 
-export default UsersContainer
+export default UsersHomeContainer

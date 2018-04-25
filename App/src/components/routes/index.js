@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
+//import { withReducer } from 'react-redux-dynamic-reducer';
+//Store Import
+import AppStore, { injectModuleReducer} from '../../store';
 
 class Loading extends Component
 { 
@@ -65,6 +68,12 @@ export default
                 path        : '/protected/users',
                 strict      : true,
                 component   : Loadable({ loader: () => import('../../containers/routes/protected/ctr_users').then((resp) => {return resp.default}), ...loadableOptions })
+            },
+            {
+                name        : 'UsersDynamic',
+                path        : '/protected/usersDynamic',
+                strict      : true,
+                component   : Loadable({ loader: () => import('../../modules/Users').then((resp) => { injectModuleReducer(AppStore(), 'UserModule', resp.ModuleReducer); return resp.default; }), ...loadableOptions })
             }
         ],
     }

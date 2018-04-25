@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import AutoForm from 'react-auto-form';
-import ApiComponent from '../../../containers/shared/ctr_ApiComponent';
+import ApiComponent from '../../../components/shared/ApiComponent';
 
 
-class Users extends Component
+class UsersHome extends Component
 {
     constructor(props)
     {
@@ -60,4 +60,4 @@ class Users extends Component
     }
 }
 
-export default Users;
+export default UsersHome;

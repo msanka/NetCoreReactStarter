@@ -1,4 +1,4 @@
-import APIHelperUtilities from "../utilities/APIHelperUtilities";
+import APIHelperUtilities from "../../../utilities/APIHelperUtilities";
 
 export default () => 
 {

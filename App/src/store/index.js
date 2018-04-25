@@ -1,5 +1,5 @@
-import { compose, applyMiddleware } from 'redux';
-import { createStore } from 'redux-dynamic-reducer';//Credit : https://www.npmjs.com/package/react-redux-dynamic-reducer
+import { createStore, compose, applyMiddleware } from 'redux';
+//import { createStore } from 'redux-dynamic-reducer';//Credit : https://www.npmjs.com/package/react-redux-dynamic-reducer
 import thunkMiddleware from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 import axiosAPIMiddleware from '../utilities/middleware_axios';
@@ -19,7 +19,15 @@ export default function()
        enableReduxDevTools ? compose(window.devToolsExtension ? window.devToolsExtension() : f => f) : null)
        (createStore);
 
-    var store = appStore(appReducers, initialState);
+    var store = appStore(appReducers(), initialState);
+
+    store.moduleReducers = {};
 
     return store;
 }
+
+//Credit : https://stackoverflow.com/questions/32968016/how-to-dynamically-load-reducers-for-code-splitting-in-a-redux-application
+export function injectModuleReducer(store, name, asyncReducer) {
+    store.moduleReducers[name] = asyncReducer;
+    store.replaceReducer(appReducers(store.moduleReducers));
+  }

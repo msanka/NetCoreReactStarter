@@ -1,34 +1,9 @@
-/*
-activeCall:
-{
-    id : '',
-    instanceId : '',
-    cancel : null,
-    config : null,
-}
-*/
+import { combineReducers } from 'redux';
+import UsersReducer from './mdl_users_reducer';
 
-let defaultState = 
-{
-    activeCalls : [],
-};
-
-export default (state = defaultState, action) =>
-{
-    switch (action.type) 
+const ModuleReducers = combineReducers(
     {
-        case 'INITIALIZE_KNOWN_COMPONENTS': 
-            {
-                console.log('Action INITIALIZE_KNOWN_COMPONENTS processed on Known Components Reducer');
-                if (action.payLoad == null)
-                {
-                    console.log('Known Components Registry loaded with empty content.');
-                }
-                return state = action.payLoad;
-            }
-        default:
-            {
-                return state;
-            }
-    }
-}
+        Users      : UsersReducer
+    });
+
+export default ModuleReducers;
