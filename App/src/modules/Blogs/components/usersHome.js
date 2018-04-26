@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AutoForm from 'react-auto-form';
-import ApiComponent from '../../../components/shared/ApiComponent';
+import ApiComponent from '../../../containers/shared/ctr_ApiComponent';
 
 
 class UsersHome extends Component

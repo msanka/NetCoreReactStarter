@@ -6,9 +6,9 @@ export default () =>
     {
         let _config = APIHelperUtilities.getRequestTemplate();
 
-        _config.url = __globals.PROXY_URI + '?url=$Config.jsonPlaceHolderBasePath$/users1234';
+        _config.url = __globals.PROXY_URI + '?url=$Config.jsonPlaceHolderBasePath$/users';
         _config.method = 'get';
-        _config.headers = { 'userid' : '$Jwt.nameid$', 'givenName' : '$Jwt.given_name$' }
+        _config.headers = { 'userid' : '$Jwt.nameid$', 'givenName' : '$Jwt.given_name$', 'Timestamp' : '$Server.DateTime$' }
 
         let getUsersList = (_config) =>
         {

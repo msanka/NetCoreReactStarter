@@ -64,16 +64,16 @@ export default
                 component   : Loadable({ loader: () => import('./protected/home').then((resp) => {return resp.default}), ...loadableOptions })
             },
             {
-                name        : 'Users',
-                path        : '/protected/users',
+                name        : 'Blogs',
+                path        : '/protected/blogs',
                 strict      : true,
-                component   : Loadable({ loader: () => import('../../containers/routes/protected/ctr_users').then((resp) => {return resp.default}), ...loadableOptions })
-            },
-            {
-                name        : 'UsersDynamic',
-                path        : '/protected/usersDynamic',
-                strict      : true,
-                component   : Loadable({ loader: () => import('../../modules/Users').then((resp) => { injectModuleReducer(AppStore(), 'UserModule', resp.ModuleReducer); return resp.default; }), ...loadableOptions })
+                component   : Loadable({ loader: () => import('../../modules/Blogs')
+                                                       .then((resp) => 
+                                                       { 
+                                                           let store = AppStore;
+                                                           injectModuleReducer(store, resp.moduleReducerName, resp.ModuleReducer); 
+                                                           return resp.default; 
+                                                        }), ...loadableOptions })
             }
         ],
     }

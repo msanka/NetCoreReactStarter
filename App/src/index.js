@@ -21,7 +21,7 @@ class App extends Component
   render()
   {
    return(
-    <Provider store={AppStore()}>
+    <Provider store={AppStore}>
       <div>
           <Notifications />
           <ErrorBoundary>

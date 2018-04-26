@@ -23,6 +23,7 @@ namespace native_api_proxy_module.Utilities
     {
         const string configPattern = @"\$Config.[A-z0-9]+\$";
         const string jwtPattern = @"\$Jwt.[A-z0-9]+\$";
+        const string serverPattern = @"\$Server.[A-z0-9]+\$";
 
         private IServiceProvider _serviceProvider;
         private IConfiguration _config;
@@ -76,8 +77,9 @@ namespace native_api_proxy_module.Utilities
 
             MatchCollection matchedConfigTokens = Regex.Matches(stringWithTokens, configPattern, RegexOptions.None);
             MatchCollection matchedJwtTokens = Regex.Matches(stringWithTokens, jwtPattern, RegexOptions.None);
+            MatchCollection matchedServerTokens = Regex.Matches(stringWithTokens, serverPattern, RegexOptions.None);
 
-            if (matchedConfigTokens.Count > 0 || matchedJwtTokens.Count > 0)
+            if (matchedConfigTokens.Count > 0 || matchedJwtTokens.Count > 0 || matchedServerTokens.Count > 0) 
                 _hasTokens = true;
 
             return _hasTokens;
@@ -98,6 +100,31 @@ namespace native_api_proxy_module.Utilities
                 resolvedString = resolvedString.Replace(match.Value, tokenValue);
             }
          
+            #endregion
+
+            #region Resolve From Server 
+            MatchCollection matchedServerTokens = Regex.Matches(resolvedString, serverPattern, RegexOptions.None);
+
+            foreach (Match match in matchedServerTokens)
+            {
+                string token = match.Value.Replace("$Server.","").Replace("$","");
+                string tokenValue = null;
+                switch(token.ToLower().Trim())
+                {
+                    case "datetime" : 
+                    {
+                        tokenValue = DateTime.Now.ToString();
+                        break;
+                    }
+                    default:
+                    {
+                        throw new Exception(string.Format("Unrecognized server token {0}", match.Value));
+                    }
+                }
+                Console.WriteLine("token : {0} value : {1}", match.Value, tokenValue);
+                resolvedString = resolvedString.Replace(match.Value, tokenValue);
+            }
+
             #endregion
 
             #region Resolve From JWT

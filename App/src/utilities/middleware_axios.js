@@ -5,7 +5,7 @@ const CancelToken = axios.CancelToken;
 
 const makeAPIRequest = store => next => action => 
 {
-    console.log('dispatching', action)
+    //console.log('dispatching', action)
 
     if ((action.payLoad != null) && (action.payLoad.request != null))
     {

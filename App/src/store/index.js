@@ -12,19 +12,18 @@ let enableReduxDevTools = true;
 //Do not remove anything that is added to the store here. The middleware is required for the application to function correctly.
 // Removing it could cause the app to end up with async actions that never complete. 
 
-export default function() 
+export default (function() 
 {
     var appStore = compose(
         applyMiddleware(thunkMiddleware, promiseMiddleware, axiosAPIMiddleware),
        enableReduxDevTools ? compose(window.devToolsExtension ? window.devToolsExtension() : f => f) : null)
        (createStore);
 
-    var store = appStore(appReducers(), initialState);
-
+    const store = appStore(appReducers(), initialState);
     store.moduleReducers = {};
-
     return store;
-}
+})();
+
 
 //Credit : https://stackoverflow.com/questions/32968016/how-to-dynamically-load-reducers-for-code-splitting-in-a-redux-application
 export function injectModuleReducer(store, name, asyncReducer) {
