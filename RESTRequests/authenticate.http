@@ -1,4 +1,4 @@
-POST http://localhost:5000/api/security/authenticate
+POST https://pwanatframewok.azurewebsites.net/api/security/authenticate
 content-type: application/json
 
 {
