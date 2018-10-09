@@ -9,6 +9,7 @@ import AppStore from './store';
 import ErrorBoundary from './components/shared/errorBounary';
 import Footer from './components/shared/footer';
 import HelpCenter from './components/shared/helpCenter';
+import ServiceWorker from './utilities/serviceworker';
 //Components Import - End
 
 class App extends Component
@@ -38,6 +39,8 @@ class App extends Component
 try
 {
   ReactDOM.render(<App />, document.getElementById('App') );
+  ServiceWorker.registerServiceWorker();
+  
 }
 catch(ex)
 {
